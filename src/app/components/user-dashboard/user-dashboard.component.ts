@@ -19,7 +19,7 @@ export class UserDashboardComponent {
 
   constructor(private userService: UserService, private router: Router, private ngZone: NgZone) { }
   openPolls = [
-    { id: 1, question: "What's your favorite programming language?", options: ["JavaScript", "Python", "Java","Golang"] },
+    { id: 1, question: "What's your favorite programming language?", options: ["JavaScript", "Python", "Java", "Golang"] },
     { id: 2, question: "Do you prefer remote or office work?", options: ["Remote", "Office", "Hybrid"] }
   ];
   selectedPoll: any = null;
@@ -38,8 +38,15 @@ export class UserDashboardComponent {
     }
   }
 
-  openChat(){
+  openChat() {
     this.showChat = !this.showChat;
+  }
+
+  chatEventRecieved(event: boolean) {
+    this.showChat = event;
+  }
+  pollEventRecieved(event: boolean) {
+    this.openCreatePoll = event;
   }
 
   createPoll() {
