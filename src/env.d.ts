@@ -5,6 +5,7 @@ declare interface Env {
   readonly NG_APP_GOOGLE_CLIENT_ID: string;
   readonly NG_APP_USER_API_URL: string;
   readonly NG_APP_CHAT_API_URL: string;
+  readonly NG_APP_POLL_API_URL: string;
   [key: string]: any;
 }
 

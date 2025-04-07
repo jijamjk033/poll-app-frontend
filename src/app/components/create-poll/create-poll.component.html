@@ -9,13 +9,13 @@
                 <label class="block text-gray-700 font-semibold">Poll Type</label>
                 <div class="flex gap-4 mt-1">
                     <label class="flex items-center space-x-2">
-                        <input type="radio" [checked]="pollForm.value.pollType === 'multiple'" 
-                            (change)="togglePollType('multiple')" class="text-purple-600">
+                        <input type="radio" [checked]="pollForm.value.pollType === 'multiple'"
+                            (click)="togglePollType('multiple')" class="text-purple-600">
                         <span>Multiple Choice</span>
                     </label>
                     <label class="flex items-center space-x-2">
-                        <input type="radio" [checked]="pollForm.value.pollType === 'yesno'" 
-                            (change)="togglePollType('yesno')" class="text-purple-600">
+                        <input type="radio" [checked]="pollForm.value.pollType === 'yesno'"
+                            (click)="togglePollType('yesno')" class="text-purple-600">
                         <span>Yes or No</span>
                     </label>
                 </div>
@@ -24,22 +24,22 @@
                 <div class="mb-4">
                     <label for="question" class="block font-semibold text-gray-700 mb-1">Poll Question *</label>
                     <input id="question" formControlName="question" placeholder="Enter poll question"
-                        class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400" required />
+                        class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-400"
+                        required />
                 </div>
-
-                <!-- Show options for Multiple Choice -->
-                <div *ngIf="pollForm.get('pollType')?.value === 'multiple'" class="grid grid-cols-2 gap-4">
-                    <div *ngFor="let option of options.controls; let i = index" class="mb-2">
-                        <label class="block font-semibold text-gray-700">Option {{ getOptionLabel(i) }} *</label>
-                        <input [formControlName]="i" placeholder="Enter option"
-                            class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-purple-400" required />
+                <div *ngIf="pollForm.get('pollType')?.value === 'multiple' && (options?.controls?.length || 0) > 0">
+                    <label class="block font-semibold text-gray-700 mb-2">Options *</label>
+                    <div class="grid grid-cols-2 gap-3" formArrayName="options">
+                        <div *ngFor="let option of options.controls; let i = index" class="mb-2">
+                            <input [formControlName]="i" placeholder="Enter option"
+                                class="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-purple-200"
+                                required />
+                        </div>
                     </div>
                 </div>
-
-                <!-- Fixed buttons at the bottom-right -->
-                <div class="absolute bottom-4 right-4 flex gap-2">
+                <div class="absolute bottom-4 right-4 flex gap-2 m-2">
                     <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
-                    [disabled]="pollForm.invalid">Launch</button>
+                        [disabled]="pollForm.invalid">Launch</button>
                     <button type="button" class="px-4 py-2 border border-gray-400 rounded-lg hover:bg-gray-100"
                         (click)="closeCreatePoll()">Close</button>
                 </div>

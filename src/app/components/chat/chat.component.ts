@@ -36,6 +36,8 @@ export class ChatComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.user = this.userService.getUser();
+    console.log(this.user, 'user');
+    
     this.socketService.connect();
     if (!this.user) {
       this.router.navigate(['/dashboard']);
@@ -138,7 +140,7 @@ export class ChatComponent implements OnInit, OnDestroy{
       this.messages.push({
         text: message.text,
         sender: message.sender,
-        timestamp: new Date(message.timestamp).toLocaleTimeString(),
+        timestamp: new Date(message.timestamp),
       });
       this.scrollToBottom();
     });
