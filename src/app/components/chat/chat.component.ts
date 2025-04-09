@@ -36,8 +36,6 @@ export class ChatComponent implements OnInit, OnDestroy{
 
   ngOnInit() {
     this.user = this.userService.getUser();
-    console.log(this.user, 'user');
-    
     this.socketService.connect();
     if (!this.user) {
       this.router.navigate(['/dashboard']);
@@ -104,7 +102,6 @@ export class ChatComponent implements OnInit, OnDestroy{
   sendMessage() {
     if (this.newMessage.trim()) {
       const sender = this.user?.googleId;
-      console.log('I am sending the message', sender, this.newMessage);
       if (!sender) {
         console.error('Error: No sender ID found in localStorage.');
         return;
@@ -119,7 +116,6 @@ export class ChatComponent implements OnInit, OnDestroy{
     if (!this.user) return;
     this.chatService.initiateChat(this.user.email, selectedUser.email).subscribe({
       next: (response) => {
-        console.log('Chat created:', response.data);
         this.chatId = response.data.chatId;
         this.searchQuery = '';
         this.users = [];
@@ -131,8 +127,6 @@ export class ChatComponent implements OnInit, OnDestroy{
   listenForNewMessages(): void {
     this.chatService.onNewMessage((message) => {
       let userId = this.user?.googleId;
-      console.log(userId, message, 'new message received');
-
       if (!userId) {
         console.error('Error: No user ID found.');
         return;
@@ -151,7 +145,6 @@ export class ChatComponent implements OnInit, OnDestroy{
     if (!this.user) return;
     this.chatService.getChats(this.user.email).subscribe({
       next: (response) => {
-        console.log('Chats fetched:', response.data);
         this.chats = response.data.sort((a, b) => new Date(b.lastUpdated).getTime() - new Date(a.lastUpdated).getTime());
       },
       error: (err) => console.error('Error fetching chats:', err)
@@ -162,7 +155,6 @@ export class ChatComponent implements OnInit, OnDestroy{
     if (!this.chatId) return;
     this.chatService.getMessages(this.chatId).subscribe({
       next: (response) => {
-        console.log('Messages fetched:', response.data);
         this.messages = response.data;
       },
       error: (err) => console.error('Error fetching messages:', err)

@@ -38,7 +38,7 @@
         <div>
             <label *ngFor="let option of selectedPoll.options" class="block mb-2">
                 <input type="radio" name="pollOption" [value]="option" [(ngModel)]="selectedOption" />
-                {{ option }}
+                {{ option.text }} — Votes: {{ option.votes }}
             </label>
         </div>
         <button class="bg-purple-600 text-white px-4 py-2 mt-4 rounded-md hover:bg-purple-700" (click)="vote()">

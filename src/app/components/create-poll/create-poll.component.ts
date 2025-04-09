@@ -61,7 +61,6 @@ export class CreatePollComponent {
       };
       this.pollService.createPoll(pollData).subscribe({
         next: (response) => {
-          console.log('Poll saved successfully:', response);
           this.pollEvent.emit(response);
           this.pollForm.reset({ pollType: 'yesno', question: '' });
           this.setDefaultOptions();
